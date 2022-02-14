@@ -1,0 +1,35 @@
+
+.full-img {
+    position: relative;
+    display: none;
+}
+  
+.breadcrumb2 {
+    display:none;
+}
+
+.image div {
+cursor: pointer;
+top: 2px;
+left: 2px;
+}
+
+.thumb-bar{
+display: none;
+flex-direction:row;
+width:688px;
+text-align: center;
+}
+
+.thumb-bar img{
+    width: 16%;
+    float: left;
+    cursor: pointer;
+    margin:5px;
+}
+.description {
+    display:none;
+}
+.details {
+    display:none;
+}
