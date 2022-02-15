@@ -12,16 +12,9 @@ const numProduitSelect=document.querySelector('.description .numProduit');
 const prixSelect=document.querySelector('.description .prix');
 const detailSelect=document.querySelector('.description .detail');
 const imagecarroussel = document.querySelectorAll('.thumb-bar img');
-//let verif=new Boolean(false);
 let z=0;
 
-/* Declaring the array of image filenames */
-// const images = ['husky.jpg', 'machine-ecrire.jpg', 'montagne.jpg', 'panne.jpg', 'pont.jpg','rive.jpg'];
-    
 /* Looping through images */
- //for (const picture of pictures) {
-    
-//conteneurimages.addEventListener('click', displayimage);
 pictures.forEach(picture=>{picture.addEventListener('click',displayimage);})
 imagecarroussel.forEach(image=>{image.addEventListener('click',displayimage);})
 function displayimage(e){
