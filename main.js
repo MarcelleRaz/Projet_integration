@@ -1,46 +1,49 @@
 const displayedImage = document.querySelector('.displayed-img');
 const thumbBar = document.querySelector('.thumb-bar');
-const conteneurimages=document.querySelectorAll('.images');
+let conteneurimages=document.querySelector('.conteneurImage');
 const pictures=document.querySelectorAll('.image img');
 const breadcrumb=document.querySelector('.breadcrumb');
 const breadcrumb2=document.querySelector('.breadcrumb2');
-const fullImg=document.querySelector('.full-img');
 const numProduit=document.querySelectorAll('.image .numProduit');
 const prix=document.querySelectorAll('.image .prix');
-const details=document.querySelectorAll('.image .details');
-const description=document.querySelector('.description');
+const details=document.querySelectorAll('.details');
+const produit=document.getElementById('produit');
 const numProduitSelect=document.querySelector('.description .numProduit');
 const prixSelect=document.querySelector('.description .prix');
 const detailSelect=document.querySelector('.description .detail');
+const imagecarroussel = document.querySelectorAll('.thumb-bar img');
+//let verif=new Boolean(false);
+let z=0;
 
 /* Declaring the array of image filenames */
 // const images = ['husky.jpg', 'machine-ecrire.jpg', 'montagne.jpg', 'panne.jpg', 'pont.jpg','rive.jpg'];
     
 /* Looping through images */
- for (const picture of pictures) {
-    picture.addEventListener('click', displayimage);
-    /*let z=pictures.indexOf(picture);
-    description.setAttribute('style','display:block');
-
-    for (i=0;i<details.length;i++){
-        if (details[i]===z){
-        numProduitSelect.textContent=numProduit[i];
-        prixSelect.textContent=prix[i];
-        detailSelect.textContent=details[i];}
-    }*/
-}
-
+ //for (const picture of pictures) {
+    
+//conteneurimages.addEventListener('click', displayimage);
+pictures.forEach(picture=>{picture.addEventListener('click',displayimage);})
+imagecarroussel.forEach(image=>{image.addEventListener('click',displayimage);})
 function displayimage(e){
-    displayedImage.src = e.target.src;
-    fullImg.setAttribute('style','display:block');
-    thumbBar.setAttribute('style','display:flex');
+    displayedImage.src = e.target.src;    
+    displayedImage.alt = e.target.alt; 
+    for (i=0;i<pictures.length;i++){
+        if(pictures[i].alt == displayedImage.alt){
+            z=i;
+        }
+    }
+    numProduitSelect.innerHTML=numProduit[z].textContent;
+    prixSelect.innerHTML=prix[z].textContent;
+    detailSelect.innerHTML=details[z].textContent;
+    produit.setAttribute('style','display:grid');
+    thumbBar.setAttribute('style','display:block');
     breadcrumb.setAttribute('style','display:none');
     breadcrumb2.setAttribute('style','display:block');
-
-    /* Hidden the categories of products */
-    for (const div_image of conteneurimages){
-        div_image.setAttribute('style','display:none');
-    }
-    
+    // Hidden the categories of products 
+    conteneurimages.setAttribute('style','display:none');
 }
+
+
+
+
 
