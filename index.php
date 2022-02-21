@@ -15,8 +15,8 @@
                 <label for="hamburger">&#9776;</label>
                 <input type="checkbox" id="hamburger"/>
                 <ul id="hamitem">
-                    <li class="active"><a href="accueil.html">Our studio</a></li>
-                    <li><a href="services.html">Catégories de produit</a></li>
+                    <li class="active"><a href="acceuil.php">Our studio</a></li>
+                    <li><a href="index.php">Catégories de produit</a></li>
                     <li><a href="product.html">Designing for humans</a></li>
                     <li><a href="Contact.html">Contact</a></li>
                 </ul>
@@ -26,7 +26,12 @@
             </div>
             <div class="acceuil_user-count">
                 <div class="count">
-                    <button>
+                    <button id="compte-user">
+                    <input type="checkbox" />
+                    <ul id="user">
+                    <li><a href="compte.php">Ouvrir mon compte</a></li>
+                        <li><a href="inscription.php">S'inscrire</a></li>
+                    </ul>
                         <span>Accès</span>
                         <img src="icones/avatar.svg" alt="B-System">
                     </button>
@@ -42,8 +47,8 @@
         <main>
             <div class="titre"> 
                 <h1>Catégorie de produits</h1>
-                <div class="breadcrumb"><a href="…" class="first">Acceuil</a><span class="sep"> &gt; </span><strong class="on">Catégorie de produits</strong></div>
-                <div class="breadcrumb2"><a href="…" class="first">Acceuil</a><span class="sep"> &gt; </span><a href="http://localhost/projet-integration/" class="first">Catégorie de produits</a><span class="sep"> &gt; </span><strong class="on">Produit</strong></div>
+                <div class="breadcrumb"><a href="acceuil.php" class="first">Acceuil</a><span class="sep"> &gt; </span><strong class="on">Catégorie de produits</strong></div>
+                <div class="breadcrumb2"><a href="acceuil.php" class="first">Acceuil</a><span class="sep"> &gt; </span><a href="http://localhost/projet-integration/" class="first">Catégorie de produits</a><span class="sep"> &gt; </span><strong class="on">Produit</strong></div>
             </div>
             <section id="produit">
                 <div class="full-img">
