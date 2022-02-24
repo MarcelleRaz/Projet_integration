@@ -15,9 +15,9 @@
             $this->dbname='magasin';
             try
             {
-                $_conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username ,$this->motpass ,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-                $_conn->exec("set names utf8mb4");
-                if (!$_conn)
+                $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username ,$this->motpass ,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                $this->conn->exec("set names utf8mb4");
+                if (!$this->conn)
                 {
                     echo'Erreur de connexion à la base de données';
                     /* ou
@@ -35,17 +35,17 @@
         }
         public function getConnect()
         {
-            $this->conn;
+            return $this->conn;
         }
         public function insertion($sql,$data=array())
         {
             $req=$this->conn->prepare($sql);
-            $req->execute($data);
+            $req=execute($data);
         }
         public function selection($sql,$data=array())
         {
             $req=$this->conn->prepare($sql);
-            //$req->execute($data);
+            $req->execute($data);
             return $this->req=$req;
         }
 

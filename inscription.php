@@ -2,7 +2,7 @@
     session_start();
     include 'appelBD.php';
     $connect= new appelBD();
-    $connect= $connect->getConnect();
+    $link= $connect->getConnect();
     if (isset($_SESSION['id']))
     {
         header('location:compte.php');
