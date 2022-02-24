@@ -13,6 +13,18 @@ const prixSelect=document.querySelector('.description .prix');
 const detailSelect=document.querySelector('.description .detail');
 const imagecarroussel = document.querySelectorAll('.thumb-bar img');
 let z=0;
+/*const motpass=document.getElementsByName('motpass');
+const motpass2=document.getElementsByName('motpass2');
+const inscription=document.getElementsByName('inscription');
+motpass2.addEventListener('onBlur', function(){
+    if (motpass!=motpass2){
+        alert("Veuillez saisir le même mot de passe!");
+        inscription.setAttribute('disabled',true);
+    } else {
+        inscription.setAttribute('disabled',false);
+    }
+})*/
+
 
 /* Looping through images */
 pictures.forEach(picture=>{picture.addEventListener('click',displayimage);})

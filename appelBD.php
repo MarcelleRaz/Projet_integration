@@ -6,36 +6,49 @@
             private $motpass;
             private $dbname;
             private $conn;
-        public function __construct(){
+            private $req;
+        public function __construct()
+        {
             $this->servername='localhost';
             $this->username='root';
             $this->motpass='';
             $this->dbname='magasin';
-            $this->conn='';
-        }
-        public function getConnect($conn){
-            
-            try{
-                $conn = new mysqli($this->servername, $this->username ,$this->motpass,$this->dbname);
-                $conn->set_charset("utf8");
-                if (!$conn) {
+            try
+            {
+                $_conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username ,$this->motpass ,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                $_conn->exec("set names utf8mb4");
+                if (!$_conn)
+                {
                     echo'Erreur de connexion à la base de données';
                     /* ou
                     if ($conn->connect_error) {
                     echo('Erreur de connexion à la base de données'.$conn->connect_error);
                     }*/          
                 }
-                echo('Eokkkkkkkkkkkkkkkkkk');
+                echo"Connexion réussie!\n";
 
-            }
-            catch(mysqliException $e){
+           }
+            catch(PDOException $e)
+            {
                 echo ($e->getMessage());
             }
-            var_dump($conn);
-            //$this->conn=$connect;
-            return $conn;
         }
-        
+        public function getConnect()
+        {
+            $this->conn;
+        }
+        public function insertion($sql,$data=array())
+        {
+            $req=$this->conn->prepare($sql);
+            $req->execute($data);
+        }
+        public function selection($sql,$data=array())
+        {
+            $req=$this->conn->prepare($sql);
+            //$req->execute($data);
+            return $this->req=$req;
+        }
 
     }
+    
 ?>
