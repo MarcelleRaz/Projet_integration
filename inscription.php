@@ -2,7 +2,6 @@
     session_start();
     include 'appelBD.php';
     $connect= new appelBD();
-    $link= $connect->getConnect();
     if (isset($_SESSION['id']))
     {
         header('location:compte.php');
@@ -38,10 +37,8 @@
             $er_email=("Veuillez entrer votre adresse courriel.");
         } else
         {
-            $req_mail=$connect->selection("SELECT courriel from client where courriel=?",array($email));
-            
-            //$req_mail=$req_mail->fetch();
-            if($req_mail['courriel']<> "")
+            $result=$connect->selection($email);
+            if(mysqli_num_rows($result)!=false)
             {
                 $valid=false;
                 $er_mail="Cet adresse courriel existe déjà!";
@@ -55,14 +52,16 @@
         {
             $valid=false;
             $er_mdp= 'La confirmation de mot de passe ne correspond pas!';       
-            echo nl2br('je suis dans verification mdp');
+            //echo nl2br('je suis dans verification mdp');
         }
         if($valid){
-            $motpass=crypt($motpass,'$6$rounds=5000$usesomesillystringforsalt$');
-            $connect->insertion("INSERT INTO client (prenom,nomFamille,courriel,motpasse) values (?,?,?,?)",array($prenom,$name,$email,$motpass2));
-            echo "Nouveau enregistrement créé avec succès";
-            //header('location:compte.php');
-            //exit();
+            $mdp_crypt=crypt($motpass2,'_J9..rasm');
+            echo($mdp_crypt);
+            $connect->insertion($prenom,$name,$email,$mdp_crypt);
+            //echo "Nouveau enregistrement créé avec succès";
+            header('location:compte.php');
+            $connect->closeConnection();
+            exit();
         }
     }
     function test_input($data) 
@@ -98,7 +97,7 @@
                 <?php
             }
             ?>
-            <input type="text" name="name" value="<?php if(isset($name)){ echo $name; }?>"><br>
+            <input type="text" name="name" value="<?php if(isset($name)){ echo $name; }?>" required><br>
             <label for="name">Prénom: </label>
             <?php
             if(isset($er_prenom))
@@ -110,7 +109,7 @@
                 <?php
             }
             ?>
-            <input type="text" name="surname" value="<?php if(isset($prenom)){ echo $prenom; }?>"><br>
+            <input type="text" name="surname" value="<?php if(isset($prenom)){ echo $prenom; }?>" required><br>
             <label for="email"> E-mail:  </label>
             <?php
             if(isset($er_email))
@@ -122,7 +121,7 @@
                 <?php
             }
             ?>
-            <input type="email" name="email" value="<?php if(isset($email)){ echo $email; }?>"><br>
+            <input type="email" name="email" value="<?php if(isset($email)){ echo $email; }?>" required><br>
             <label for="text"> Mot de passe: </label>
             <?php
             if(isset($er_mdp))
@@ -134,9 +133,9 @@
                 <?php
             }
             ?>
-            <input type="text" name="motpass" value="<?php if(isset($motpass)){ echo $motpass; }?>"><br>
-            <label for="text"> Ressaisir votre mot de passe: </label>
-            <input type="text" name="motpass2"><br>
+            <input type="password" name="motpass" value="<?php if(isset($motpass)){ echo $motpass; }?>" required><br>
+            <label for="motoass2"> Ressaisir votre mot de passe: </label>
+            <input type="password" name="motpass2"><br>
             <input type="submit" name="inscription">
         </form>
     </body>

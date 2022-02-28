@@ -6,7 +6,7 @@
             private $motpass;
             private $dbname;
             private $conn;
-            private $req;
+            
         public function __construct()
         {
             $this->servername='localhost';
@@ -15,8 +15,8 @@
             $this->dbname='magasin';
             try
             {
-                $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username ,$this->motpass ,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-                $this->conn->exec("set names utf8mb4");
+                $this->conn = new mysqli($this->servername,$this->username ,$this->motpass);
+                $this->conn->set_charset("utf8mb4");
                 if (!$this->conn)
                 {
                     echo'Erreur de connexion à la base de données';
@@ -25,30 +25,46 @@
                     echo('Erreur de connexion à la base de données'.$conn->connect_error);
                     }*/          
                 }
-                echo"Connexion réussie!\n";
-
+                else
+                {
+                    $select_db = mysqli_select_db($this->conn,$this->dbname);
+                    if(!$select_db)
+                    {
+                        die("La sélection de la base de données a échoué " . mysql_error());
+                    }
+                }
+                //echo"Connexion réussie!\n";
            }
-            catch(PDOException $e)
+            catch(mysqliException $e)
             {
                 echo ($e->getMessage());
             }
         }
-        public function getConnect()
+        public function selection($data)
         {
-            return $this->conn;
+            $sql="SELECT courriel from client where courriel='$data'";
+            $result=$this->conn->query($sql);
+            return $result;
         }
-        public function insertion($sql,$data=array())
+        public function insertion($prenom,$name,$email,$motpass2)
         {
-            $req=$this->conn->prepare($sql);
-            $req=execute($data);
+            $sql="INSERT INTO client (prenom,nomFamille,courriel,motpasse) values ('$prenom','$name','$email','$motpass2')";
+            $req=$this->conn->query($sql);
+            
         }
-        public function selection($sql,$data=array())
+        public function entercompte($email, $mdp){
+            $sql="SELECT * from client where courriel=$email and motPasse=$mdp";
+            $result=$this->conn->query($sql);
+            return $result;
+        }
+        public function closeConnection()
         {
-            $req=$this->conn->prepare($sql);
-            $req->execute($data);
-            return $this->req=$req;
+            if(isset($this->conn))
+            {
+                mysqli_close($this->conn);
+                unset($this->conn);
+            }
         }
-
     }
     
 ?>
