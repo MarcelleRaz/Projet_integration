@@ -53,7 +53,7 @@
             
         }
         public function entercompte($email, $mdp){
-            $sql="SELECT * from client where courriel=$email and motPasse=$mdp";
+            $sql="SELECT id, nomFamille, prenom from client where courriel='$email' and motPasse='$mdp'";
             $result=$this->conn->query($sql);
             return $result;
         }

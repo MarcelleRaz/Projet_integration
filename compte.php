@@ -1,5 +1,4 @@
 <?php
-
 include 'appelBD.php';
 $connect= new appelBD();
 if (isset($_SESSION['id']))
@@ -17,7 +16,7 @@ if (isset($_POST['connexion']))
     $name;
     $prenom;
     $email = htmlspecialchars(strtolower(trim($_POST["email"])));
-    $motpass = trim($_POST["motpass"]);
+    $motpass = htmlspecialchars(trim($_POST["motpass"]));
     $hashed_pass=crypt($motpass,'_J9..rasm');
 
     if(empty($email)){
@@ -28,27 +27,27 @@ if (isset($_POST['connexion']))
         $valid=false;
         $er_code='Il faut enter votre mot de passe';
     }
-    if ($valid){
-        $user=array($email,$hashed_pass);
-        $foundRows=array();
-        //$sql="SELECT * FROM client WHERE courriel='$email' and motPass='$motpass'";
-        $req=$connect->entercompte($email,$hashed_pass);
-        //$result=mysqli_affected_rows($req);
-        if(mysqli_num_rows($req)>0)
+    if ($valid)
+    {
+        if (!empty($email) && !empty($motpass))
         {
-            session_start();
-            $_SESSION['login']=$_POST['email'];
-            //header('location:espace-membre.php');
-            echo'Bienvenu!';
-            $connect->closeConnection();
-            exit();
-        }else{
-            echo 'erreur de courriel ou de mot de passe!';
+            $req=$connect->entercompte($email,$hashed_pass);
+            if(!empty($req))
+            {
+                session_start();
+                $_SESSION['email']=$email;
+                $row=mysqli_fetch_array($req,MYSQLI_ASSOC);
+                $_SESSION['id']=$row['id'];
+                $_SESSION['nom']=$row['nomFamille'];
+                $_SESSION['prenom']=$row['prenom'];
+                header('Location: espace-membre.php');
+            }else{
+                $erreur='Erreur de courriel ou de mot de passe!';
+            }
         }
+        $connect->closeConnection();
     }
 }
- 
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,6 +62,16 @@ if (isset($_POST['connexion']))
     <header>
             <h1>CONNEXION</h1>
         </header>
+        <?php
+        if(isset($erreur))
+        {
+            ?>
+                <div>
+                <?=$erreur?>
+                </div>
+            <?php
+        }
+        ?>
     <form action="compte.php" method="post">
         <label for="email"> E-mail:  </label>
         <?php
