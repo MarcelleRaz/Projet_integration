@@ -5,10 +5,15 @@ if (!isset($_SESSION['email'])) {
 	exit();
 }
 ?>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Espace membre</title>
-</head>
+	<head>	
+		<meta charset="utf-8">
+		<title>B_system</title>
+		<link rel="stylesheet" href="formulaire.css" type="text/css">
+		<link rel="shortcut icon" href="icones/Favicon.png" type="image/x-icon">
+		<title>Espace membre</title>
+	</head>
 <body>
 	<h1>ESPACE MEMBRE</h1>
 <?php

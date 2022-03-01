@@ -77,7 +77,7 @@
     <head>
         <meta charset="utf-8">
         <title>B_system</title>
-        <link rel="stylesheet" href="styles.css" type="text/css">
+        <link rel="stylesheet" href="formulaire.css" type="text/css">
         <link rel="shortcut icon" href="icones/Favicon.png" type="image/x-icon">
         <title>FORMULAIRE D'INSCRIPTION</title>
     </head>
@@ -136,7 +136,7 @@
             <input type="password" name="motpass" value="<?php if(isset($motpass)){ echo $motpass; }?>" required><br>
             <label for="motoass2"> Ressaisir votre mot de passe: </label>
             <input type="password" name="motpass2"><br>
-            <input type="submit" name="inscription">
+            <input type="submit" name="inscription" id="bouton">
         </form>
     </body>
 </html>

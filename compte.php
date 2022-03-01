@@ -54,7 +54,7 @@ if (isset($_POST['connexion']))
     <head>
         <meta charset="utf-8">
         <title>B_system</title>
-        <link rel="stylesheet" href="styles.css" type="text/css">
+        <link rel="stylesheet" href="formulaire.css" type="text/css">
         <link rel="shortcut icon" href="icones/Favicon.png" type="image/x-icon">
     </head>
     
@@ -97,7 +97,7 @@ if (isset($_POST['connexion']))
             }
         ?>
         <input type="password" placeholder="Mot de passe" name="motpass" required><br>
-        <input type="submit" name="connexion">
+        <input type="submit" name="connexion" id="bouton">
     </form>
 </body>
 </html>
